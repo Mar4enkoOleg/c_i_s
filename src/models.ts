@@ -1,32 +1,33 @@
 export interface ICashier {
-  id: number
-  name: string
-  shop: IShop
-  experience: {
-    shop: IShop[]
-    startDate: Date
-    endDate: Date
-  }
+  fullname: string
+  age: number
+  sex: Sex
+  phone: string
+  previousework: string
+  yearofexp: number
+  workslnshift: Shift
+  workweekstandart: boolean
+  idshop: IShop
+  idcashreg: ICashregister
 }
+
+export interface ICashregister {
+  numbercashreg: number
+  serialnumber: string
+}
+
 export interface IShop {
-  id: number
-  address: {
-    city: string
-    street: string
-    building: string | number
-  }
-  net: {
-    name: string
-  }
-  workHistory: {
-    startDate: Date
-    endDate?: Date
-  }
-  workslnShift: number[]
-  cashRegister: number
-  workDays: number[]
+  shopname: string
+  city: string
+  address: string
 }
-export interface ICashRegister {
-  id: number
-  cashNumber: number
+
+enum Sex {
+  'Male',
+  'Female',
+}
+enum Shift {
+  'first' = 1,
+  'second' = 2,
+  'third' = 3,
 }
