@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const app = express_1.default();
 const db_1 = __importDefault(require("./db"));
-//middlewares
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
 const port = process.env.PORT || 3000;

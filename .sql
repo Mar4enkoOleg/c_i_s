@@ -1,151 +1,252 @@
 CREATE DATABASE cash;
 
 CREATE TABLE cashier(
-    id bigserial primary key not null,
+    id bigserial primary key,
     fullname varchar(50) not null,
     age integer,
-    sex varchar(6),
-    phone varchar(20),
-    previousework varchar(50),
+    sex varchar(6) not null,
     yearofexp integer,
-    workslnshift integer,
-    workweekstandart boolean,
-    idshop integer,
-    idcashreg integer
+    workslnshift integer not null,
+    previouswork varchar(50),
+    workweekstandart boolean not null,
+    cashregister_id integer
 );
 
 CREATE TABLE shop(
-    id serial primary key not null,
-    shopname varchar(50) not null,
+    id serial primary key,
+    name varchar(50) not null,
     city varchar(50) not null,
     address varchar(50) not null
 );
 
 CREATE TABLE cashregister(
-    id serial primary key not null,
+    id serial primary key,
     num integer not null,
-    serialnum varchar(50)
+    serialnum varchar(50),
+    shop_id integer
 );
 
-ALTER TABLE cashier ADD FOREIGN KEY (idcashreg) REFERENCES cashregister (id);
-ALTER TABLE cashier ADD FOREIGN KEY (idshop) REFERENCES shop (id);
+ALTER TABLE cashier ADD FOREIGN KEY (cashregister_id) REFERENCES cashregister (id);
+ALTER TABLE cashregister ADD FOREIGN KEY (shop_id) REFERENCES shop (id);
 
-INSERT INTO shop (shopname, city, address) VALUES ('Ashan', 'city1', 'address1');
-INSERT INTO shop (shopname, city, address) VALUES ('Ashan', 'city2', 'address2');
-INSERT INTO shop (shopname, city, address) VALUES ('Silpo', 'city3', 'address3');
-INSERT INTO shop (shopname, city, address) VALUES ('Silpo', 'city4', 'address4');
-INSERT INTO shop (shopname, city, address) VALUES ('ATB', 'city5', 'address5');
-INSERT INTO shop (shopname, city, address) VALUES ('ATB', 'city6', 'address6');
-INSERT INTO shop (shopname, city, address) VALUES ('Apelmon', 'city1', 'address7');
-INSERT INTO shop (shopname, city, address) VALUES ('Apelmon', 'city2', 'address8');
-INSERT INTO shop (shopname, city, address) VALUES ('Trash', 'city3', 'address9');
-INSERT INTO shop (shopname, city, address) VALUES ('Trash', 'city4', 'address10');
-INSERT INTO shop (shopname, city, address) VALUES ('Varus', 'city5', 'address11');
-INSERT INTO shop (shopname, city, address) VALUES ('Varus', 'city6', 'address12');
+INSERT INTO shop (name, city, address) VALUES ('Ashan', 'Lviv', 'address1, dom1');
+INSERT INTO shop (name, city, address) VALUES ('Ashan', 'Kiev', 'address2, dom2');
+INSERT INTO shop (name, city, address) VALUES ('Silpo', 'Zaporogie', 'address3, dom3');
+INSERT INTO shop (name, city, address) VALUES ('Silpo', 'Rivne', 'address4, dom4');
+INSERT INTO shop (name, city, address) VALUES ('ATB', 'Ujgorod', 'address5, dom5');
+INSERT INTO shop (name, city, address) VALUES ('ATB', 'Dnepr', 'address6, dom6');
+INSERT INTO shop (name, city, address) VALUES ('Apelmon', 'Chernovtsy', 'address7, dom7');
+INSERT INTO shop (name, city, address) VALUES ('Apelmon', 'Melitopol', 'address8, dom8');
+INSERT INTO shop (name, city, address) VALUES ('Trash', 'Herson', 'address9, dom9');
+INSERT INTO shop (name, city, address) VALUES ('Trash', 'Harkov', 'address10, dom10');
+INSERT INTO shop (name, city, address) VALUES ('Varus', 'Kiev', 'address11, dom11');
+INSERT INTO shop (name, city, address) VALUES ('Varus', 'Lviv', 'address12, dom12');
+INSERT INTO shop (name, city, address) VALUES ('ATB', 'Lviv', 'address13, dom13');
+INSERT INTO shop (name, city, address) VALUES ('ATB', 'Lviv', 'address14, dom14');
+INSERT INTO shop (name, city, address) VALUES ('ATB', 'Lviv', 'address15, dom15');
 
-INSERT INTO cashregister (num, serialnum) VALUES (1, 'serialnumber1');
-INSERT INTO cashregister (num, serialnum) VALUES (2, 'serialnumber2');
-INSERT INTO cashregister (num, serialnum) VALUES (3, 'serialnumber3');
-INSERT INTO cashregister (num, serialnum) VALUES (4, 'serialnumber4');
-INSERT INTO cashregister (num, serialnum) VALUES (5, 'serialnumber5');
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (1, 'serialnumber1',1);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (2, 'serialnumber2',1);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (3, 'serialnumber3',1);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (4, 'serialnumber4',1);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (5, 'serialnumber5',1);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (6, 'serialnumber6',1);
 
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Obed Schimank', 53, 'Female', '(209) 5614818', null, 1, 3, false, 9, 5);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Audi Nannoni', 18, 'Female', '(282) 1339073', null, 5, 1, false, 1, 5);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Yale Thomazin', 46, 'Female', '(653) 8193504', null, 1, 1, true, 8, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Ethelred Newiss', 27, 'Female', '(581) 9252693', null, 5, 1, false, 9, 5);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Carline Theurer', 23, 'Male', '(742) 8038172', null, 4, 1, true, 5, 5);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Leontyne Lillee', 56, 'Female', '(899) 1847730', null, 5, 2, false, 6, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Sylas McMickan', 19, 'Male', '(746) 1323234', 'Alphazap', null, 2, true, 3, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Everett Few', 38, 'Male', '(884) 7895424', null, 2, 1, true, 6, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Baldwin Kennaway', 47, 'Female', '(214) 1213201', null, 2, 3, false, 11, 2);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Nertie Cawker', 35, 'Male', '(321) 5348438', null, 1, 3, true, 5, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Bee Tewkesbury', 29, 'Female', '(836) 2217336', null, 5, 3, true, 4, 2);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Kate Barbe', 41, 'Male', '(235) 7553927', null, null, 2, false, 3, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Avictor Nott', 58, 'Male', '(714) 9981537', null, 2, 2, false, 6, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Joan Willoway', 38, 'Female', '(292) 6146759', 'Wrapsafe', 4, 1, false, 8, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Wenona Vaune', 23, 'Female', '(753) 7000159', null, 4, 2, true, 1, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Grady Frankish', 36, 'Male', '(602) 7789416', null, 5, 1, false, 5, 5);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Latia McCamish', 59, 'Female', '(751) 7780057', null, 2, 2, true, 6, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Celia Hanselmann', 25, 'Male', '(523) 3043913', null, 3, 1, true, 8, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Seka McDermott-Row', 55, 'Female', '(206) 4607068', 'Lotlux', 1, 2, true, 1, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Claus Woodlands', 45, 'Male', '(181) 3619074', null, null, 1, true, 9, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Corrianne Coomes', 59, 'Male', '(649) 9647910', null, 1, 1, true, 7, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Leonid Prys', 49, 'Female', '(916) 7902282', null, 2, 1, true, 1, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Hannah Mayell', 47, 'Male', '(897) 8516775', null, 1, 2, false, 10, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Drusilla Woodings', 55, 'Male', '(900) 1009464', null, null, 1, true, 7, 2);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Regine Perree', 22, 'Female', '(819) 8019082', null, 2, 2, true, 3, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Merl Bursnell', 36, 'Male', '(155) 7944101', null, 4, 3, true, 6, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Norma Saywell', 44, 'Male', '(678) 9993895', null, 3, 2, false, 6, 2);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Shirlee Yendall', 33, 'Male', '(550) 4367512', 'Zamit', 5, 2, true, 1, 2);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Fredric Drepp', 42, 'Male', '(165) 1404139', null, 2, 3, false, 10, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Torey Daborn', 51, 'Male', '(230) 4921145', null, 5, 2, true, 9, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Esther Stepney', 57, 'Female', '(603) 9234328', null, 3, 3, false, 4, 2);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Jami Feldbau', 56, 'Male', '(691) 4872647', null, null, 1, true, 11, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Morlee Le Marquis', 27, 'Female', '(320) 9018810', null, null, 1, true, 11, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Phillie Batey', 38, 'Male', '(789) 4993245', null, 5, 1, true, 2, 5);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Caprice Coping', 27, 'Male', '(496) 3110169', null, 5, 3, false, 6, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Avigdor Torrecilla', 29, 'Male', '(329) 6470919', null, 5, 3, false, 8, 5);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Lorne Naseby', 19, 'Male', '(209) 8853401', null, 4, 3, false, 7, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Lavinia Redon', 53, 'Female', '(647) 6833984', null, 4, 3, false, 12, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Burch Carmody', 45, 'Female', '(975) 8523922', null, 1, 3, true, 7, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Lothario Praton', 42, 'Female', '(104) 5579117', null, null, 2, false, 4, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Eulalie MacLaren', 35, 'Male', '(964) 2474361', 'Otcom', 3, 3, true, 12, 5);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Enrico Boake', 23, 'Female', '(249) 9348229', null, 5, 2, false, 12, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Kinna Waldera', 60, 'Male', '(131) 9596194', null, null, 1, false, 3, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Judas Fenkel', 25, 'Male', '(181) 6241930', null, 4, 3, true, 6, 5);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Ken Patillo', 53, 'Female', '(766) 2174025', null, 1, 3, false, 1, 5);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Scarface Rillett', 48, 'Male', '(936) 8002297', null, 4, 1, true, 3, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Christian Blazeby', 30, 'Male', '(454) 5805965', null, 1, 2, false, 1, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Ferdinand Spini', 39, 'Male', '(266) 2089815', 'Mat Lam Tam', null, 3, true, 6, 5);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Jabez Fidell', 19, 'Male', '(408) 6063755', null, 2, 2, true, 9, 2);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Shana Buglar', 23, 'Female', '(192) 2387243', null, null, 3, false, 9, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Tiphanie Skyppe', 47, 'Female', '(672) 1344562', 'Andalax', 4, 2, true, 9, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Hobey Blinder', 49, 'Female', '(635) 8372241', null, null, 2, true, 7, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Yetty McRae', 32, 'Female', '(196) 3340756', null, 4, 2, false, 9, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Frasquito Larcher', 52, 'Female', '(149) 3519751', null, 2, 2, true, 2, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Jorry Crosson', 33, 'Female', '(244) 4018610', null, 3, 1, false, 2, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Sande Jeffcoat', 24, 'Male', '(295) 4128163', null, 2, 3, true, 10, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Colene Dummett', 40, 'Male', '(376) 6579698', null, 2, 3, true, 2, 5);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Tiff Kyffin', 58, 'Female', '(874) 4790364', null, 5, 1, false, 9, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Gill Keling', 31, 'Female', '(995) 6897034', null, 3, 1, true, 1, 2);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Corenda Jovic', 53, 'Male', '(914) 2864206', null, 4, 2, false, 12, 2);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Bonny Sotheby', 49, 'Female', '(892) 3567568', null, 4, 2, false, 10, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Codie Piner', 54, 'Female', '(899) 6114336', null, 2, 2, false, 7, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Estella Durrance', 41, 'Female', '(598) 1343479', 'Stringtough', 5, 3, false, 12, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Karlan Forsdicke', 26, 'Female', '(764) 7611489', 'Subin', 4, 1, false, 2, 5);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Sherwood Goddert.sf', 32, 'Male', '(177) 1838744', null, null, 3, false, 9, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Cass Sodeau', 37, 'Male', '(849) 9165830', null, 2, 1, true, 5, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Oliviero Gately', 39, 'Female', '(139) 5723411', null, 4, 1, true, 4, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Emalee Fender', 19, 'Female', '(152) 1359689', null, null, 2, true, 2, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Jacynth Henrichs', 36, 'Male', '(955) 7483983', null, 4, 2, true, 6, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Teodoro Clerke', 39, 'Female', '(345) 4817602', null, 3, 2, false, 12, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Juana Bedle', 56, 'Male', '(634) 7327961', null, 1, 2, true, 4, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Erma Josephi', 48, 'Male', '(400) 8477485', null, null, 1, false, 1, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Worthington Kinchington', 45, 'Female', '(661) 6253294', null, null, 2, true, 7, 5);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Bonny Edson', 60, 'Male', '(271) 6961622', null, 2, 2, true, 9, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Gladys Bansal', 28, 'Female', '(798) 7371839', null, 2, 3, true, 8, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Maud Binding', 57, 'Female', '(687) 6077611', null, 5, 3, false, 1, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Karina Kleinsinger', 35, 'Male', '(337) 4949423', null, 2, 1, true, 11, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Marika Lissandre', 27, 'Female', '(453) 3529612', null, null, 1, true, 3, 2);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Bart Derisly', 21, 'Male', '(899) 6437481', null, null, 3, true, 8, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Vassily Oldnall', 22, 'Female', '(871) 9823381', null, 2, 3, true, 3, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Georgine Porson', 43, 'Female', '(985) 2442427', 'Fix San', 3, 2, false, 3, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Reilly Suart', 45, 'Female', '(761) 2553936', null, 5, 1, false, 7, 2);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Edouard Phare', 45, 'Female', '(300) 5670890', null, 4, 3, true, 6, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Malinda McNickle', 39, 'Male', '(590) 5454293', null, 2, 3, false, 5, 5);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Kaycee Cruz', 48, 'Male', '(738) 7986466', null, 2, 1, true, 4, 5);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Anthe Scowcroft', 42, 'Male', '(193) 1272353', null, 5, 2, false, 3, 5);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Nelia Ferrero', 35, 'Female', '(678) 1900576', null, 2, 1, false, 6, 5);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Devonne Law', 31, 'Male', '(625) 9337857', null, 1, 2, false, 10, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Dela Farryan', 52, 'Female', '(976) 5872069', 'Treeflex', 2, 2, false, 4, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Brocky Stormes', 22, 'Male', '(805) 1848353', null, 2, 3, true, 9, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Aguistin Darke', 34, 'Female', '(483) 1114194', null, null, 1, true, 12, 5);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Barry Weagener', 35, 'Male', '(545) 2997580', null, null, 1, true, 7, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Samson Salzen', 28, 'Female', '(142) 1906400', null, 1, 2, true, 7, 4);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Concordia Dwelley', 43, 'Female', '(288) 8464431', null, 5, 1, true, 12, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Mace Reinbeck', 39, 'Female', '(562) 4097591', null, 4, 2, true, 6, 3);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Christel Trimme', 40, 'Female', '(178) 1051911', 'Konklab', 1, 3, false, 4, 2);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Alena Rahl', 55, 'Male', '(787) 4977183', null, 1, 3, false, 6, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Melisse MacCarroll', 32, 'Male', '(342) 6534891', null, 4, 2, true, 8, 1);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Bev Spinley', 38, 'Male', '(960) 3968715', null, null, 1, false, 5, 2);
-insert into cashier (fullname, age, sex, phone, previousework, yearofexp, workslnshift, workweekstandart, idshop, idcashreg) values ('Patsy Prando', 30, 'Male', '(474) 3707086', 'Quo Lux', 3, 3, true, 1, 4);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (1, 'serialnumber7',2);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (2, 'serialnumber8',2);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (3, 'serialnumber9',2);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (4, 'serialnumber10',2);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (5, 'serialnumber11',2);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (6, 'serialnumber12',2);
+
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (1, 'serialnumber13',3);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (2, 'serialnumber14',3);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (3, 'serialnumber15',3);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (4, 'serialnumber16',3);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (5, 'serialnumber17',3);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (6, 'serialnumber18',3);
+
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (1, 'serialnumber19',4);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (2, 'serialnumber20',4);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (3, 'serialnumber21',4);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (4, 'serialnumber22',4);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (5, 'serialnumber23',4);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (6, 'serialnumber24',4);
+
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (1, 'serialnumber25',5);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (2, 'serialnumber26',5);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (3, 'serialnumber27',5);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (4, 'serialnumber28',5);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (5, 'serialnumber29',5);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (6, 'serialnumber30',5);
+
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (1, 'serialnumber31',6);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (2, 'serialnumber32',6);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (3, 'serialnumber33',6);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (4, 'serialnumber34',6);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (5, 'serialnumber35',6);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (6, 'serialnumber36',6);
+
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (1, 'serialnumber37',7);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (2, 'serialnumber38',7);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (3, 'serialnumber39',7);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (4, 'serialnumber40',7);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (5, 'serialnumber41',7);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (6, 'serialnumber42',7);
+
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (1, 'serialnumber43',8);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (2, 'serialnumber44',8);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (3, 'serialnumber45',8);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (4, 'serialnumber46',8);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (5, 'serialnumber47',8);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (6, 'serialnumber48',8);
+
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (1, 'serialnumber49',9);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (2, 'serialnumber50',9);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (3, 'serialnumber51',9);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (4, 'serialnumber52',9);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (5, 'serialnumber53',9);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (6, 'serialnumber54',9);
+
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (1, 'serialnumber55',10);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (2, 'serialnumber56',10);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (3, 'serialnumber57',10);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (4, 'serialnumber58',10);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (5, 'serialnumber59',10);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (6, 'serialnumber60',10);
+
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (1, 'serialnumber61',11);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (2, 'serialnumber62',11);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (3, 'serialnumber63',11);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (4, 'serialnumber64',11);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (5, 'serialnumber65',11);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (6, 'serialnumber66',11);
+
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (1, 'serialnumber67',12);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (2, 'serialnumber68',12);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (3, 'serialnumber69',12);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (4, 'serialnumber70',12);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (5, 'serialnumber71',12);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (6, 'serialnumber72',12);
+
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (1, 'serialnumber73',13);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (2, 'serialnumber74',13);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (3, 'serialnumber75',13);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (4, 'serialnumber76',13);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (5, 'serialnumber77',13);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (6, 'serialnumber78',13);
+
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (1, 'serialnumber79',14);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (2, 'serialnumber80',14);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (3, 'serialnumber81',14);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (4, 'serialnumber82',14);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (5, 'serialnumber83',14);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (6, 'serialnumber84',14);
+
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (1, 'serialnumber85',15);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (2, 'serialnumber86',15);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (3, 'serialnumber87',15);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (4, 'serialnumber88',15);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (5, 'serialnumber89',15);
+INSERT INTO cashregister (num, serialnum, shop_id) VALUES (6, 'serialnumber90',15);
+
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Addy Dallosso', 25, 'Male', null, 1, null, false, 82);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Tiff Karczinski', 39, 'Female', 11, 2, null, false, 77);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Fayina Flynn', 35, 'Male', 10, 1, null, false, 6);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Yuma Pingston', 55, 'Male', 3, 3, null, false, 29);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Rochelle Sandbrook', 30, 'Female', 12, 3, null, true, 7);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Nicolina Jacmard', 29, 'Female', null, 2, null, true, 28);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Hilliary Goddert.sf', 55, 'Male', 11, 2, null, true, 67);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Bianca Ivanishchev', 61, 'Male', 5, 3, null, true, 70);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Terry Maasze', 33, 'Male', null, 1, null, true, 22);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Bordie Happel', 38, 'Female', null, 1, null, true, 58);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Archibold Bulfoy', 24, 'Female', 5, 1, null, false, 41);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Elyssa Blemen', 27, 'Male', 14, 1, null, false, 10);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Stavro Mateiko', 55, 'Female', 15, 1, null, false, 48);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Calypso Jeannel', 50, 'Female', 3, 1, null, true, 67);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Stearn McTerlagh', 25, 'Male', 1, 1, null, false, 5);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Katleen Furmagier', 62, 'Female', 9, 1, null, false, 57);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Meris Le Moucheux', 21, 'Female', 12, 2, null, true, 67);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Travis Biggerdike', 59, 'Male', null, 1, null, false, 69);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Tasia Pomroy', 41, 'Male', 9, 1, null, false, 84);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Rici Cureton', 32, 'Male', 11, 2, null, false, 71);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Katine MacKim', 30, 'Female', 1, 1, null, true, 64);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Wileen Seago', 20, 'Male', 10, 3, null, true, 72);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Reynolds Chopy', 63, 'Male', 10, 2, null, false, 34);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Ivett Inkpen', 26, 'Female', 5, 1, null, true, 12);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Henrietta Kordes', 61, 'Female', 1, 1, null, true, 82);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Gabe Swatton', 24, 'Male', 4, 2, null, false, 57);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Paddie McClarence', 55, 'Male', 12, 2, null, false, 65);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Blinni Caesar', 53, 'Male', 3, 1, null, true, 56);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Dareen Barrim', 18, 'Male', 1, 3, null, false, 25);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Jarret Muschette', 44, 'Male', null, 2, null, true, 50);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Miles Rapin', 46, 'Female', 5, 1, null, false, 28);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Roselle Asty', 64, 'Female', null, 2, null, true, 66);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Fredelia Cucuzza', 50, 'Female', null, 2, null, true, 58);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Russell Elies', 55, 'Male', 7, 3, null, true, 24);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Lyn Ewin', 28, 'Female', null, 3, null, false, 28);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Aime McKee', 43, 'Male', 2, 1, null, true, 43);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Marleah Mazey', 20, 'Male', 15, 2, null, true, 90);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Marwin Juschka', 49, 'Female', 2, 1, null, false, 25);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Erin Du Barry', 50, 'Female', null, 2, null, false, 73);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Kym Quantrill', 34, 'Male', 7, 3, null, true, 59);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Odelinda Samwell', 27, 'Female', 14, 3, null, true, 5);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Scarlet Beckenham', 19, 'Female', 11, 3, null, false, 23);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Suzy Olerenshaw', 61, 'Male', null, 3, null, false, 77);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Binky Beades', 51, 'Male', 4, 1, null, true, 53);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Quill Skett', 61, 'Male', 12, 3, null, false, 10);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Milton Leafe', 64, 'Female', 1, 1, null, false, 18);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Dew Kinavan', 54, 'Male', 11, 3, null, false, 75);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Erinna Tomet', 35, 'Male', 7, 3, null, false, 21);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Hildegarde Fairfull', 24, 'Female', 6, 1, null, true, 19);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Anet Warre', 61, 'Female', 10, 1, null, true, 61);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Lars Whyteman', 52, 'Female', 11, 1, null, true, 56);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Marquita Lawrance', 63, 'Female', 9, 3, null, false, 86);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Fey Pady', 51, 'Female', 7, 2, null, true, 77);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Ruthy Waterman', 42, 'Male', null, 2, null, true, 42);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Quinta Rabley', 32, 'Male', 14, 3, null, true, 70);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Betty Denes', 55, 'Male', null, 3, null, true, 34);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Christopher Romand', 51, 'Female', 6, 3, null, true, 87);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Alick McGuffie', 48, 'Male', 12, 3, null, false, 64);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Wake Hufton', 27, 'Female', 3, 3, null, false, 35);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Kassia Lasselle', 31, 'Male', 4, 3, null, false, 11);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Demetris Danieli', 37, 'Female', 7, 2, null, false, 87);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Adrian Laurencot', 21, 'Female', null, 3, null, true, 90);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Laurianne Quoit', 26, 'Male', null, 3, null, true, 34);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Vanya Boncoeur', 25, 'Female', null, 3, null, true, 14);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Ethelind Furmagier', 63, 'Female', 6, 2, null, true, 3);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Arv Bolt', 29, 'Female', 9, 1, null, true, 84);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Missy Steinhammer', 27, 'Male', 4, 2, null, true, 79);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Dewitt Reiner', 58, 'Female', 12, 3, null, false, 1);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Sibilla Labitt', 30, 'Male', 3, 2, null, true, 4);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Kalvin Burkitt', 26, 'Male', 11, 1, null, false, 85);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Maye Lathy', 21, 'Female', 9, 1, null, true, 62);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Harry Upchurch', 50, 'Male', null, 2, null, true, 85);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Ewan Bothwell', 54, 'Male', 4, 1, null, true, 48);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Clark Minghetti', 33, 'Male', 12, 1, null, true, 12);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Alameda Jewson', 50, 'Male', 10, 3, null, false, 13);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Jarred Kull', 35, 'Male', null, 3, null, true, 33);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Ruperta Livick', 25, 'Female', null, 1, null, true, 24);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Bogey Marqyes', 23, 'Female', 11, 2, null, false, 51);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Hill Mattes', 22, 'Female', null, 3, null, true, 71);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Marysa Casswell', 41, 'Male', 2, 2, null, true, 28);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Ninnette Staynes', 37, 'Male', null, 2, null, false, 64);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Zarla Winspeare', 31, 'Male', 7, 1, null, true, 33);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Reena Pfaffel', 40, 'Female', 5, 3, null, true, 58);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Brocky Bode', 61, 'Female', null, 3, null, false, 24);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Maighdiln Ilyasov', 30, 'Female', null, 2, null, true, 56);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Honor Marns', 56, 'Female', 2, 3, null, true, 81);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Clifford Jiroutek', 49, 'Male', 11, 1, null, true, 46);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Joela Pelfer', 18, 'Female', 11, 3, null, false, 8);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Mandel Ratnege', 45, 'Female', null, 3, null, false, 89);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Colman McCrossan', 43, 'Male', 2, 3, null, false, 81);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Danny Mollindinia', 43, 'Female', 11, 2, null, false, 31);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Aldis Martinovsky', 52, 'Female', 2, 3, null, true, 62);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Dorene Trewin', 49, 'Female', null, 1, null, true, 46);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Ursulina Budleigh', 30, 'Female', 12, 2, null, false, 32);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Foss O''Lagen', 35, 'Female', 11, 3, null, false, 67);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Desdemona Harvie', 49, 'Male', null, 3, null, false, 44);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Davie Johann', 22, 'Female', 14, 1, null, false, 23);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Weidar Haliburton', 41, 'Female', 10, 2, null, true, 7);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Gwennie Shailer', 41, 'Female', 15, 2, null, true, 54);
+insert into cashier (fullname, age, sex, yearofexp, workslnshift, previouswork, workweekstandart, cashregister_id) values ('Corrine Newvell', 20, 'Male', 15, 3, null, true, 21);

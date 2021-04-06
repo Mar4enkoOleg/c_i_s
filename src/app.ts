@@ -4,7 +4,6 @@ const app = express()
 
 import router from './db'
 
-//middlewares
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 

@@ -2,22 +2,21 @@ export interface ICashier {
   fullname: string
   age: number
   sex: Sex
-  phone: string
-  previousework: string
   yearofexp: number
   workslnshift: Shift
+  previousework: string
   workweekstandart: boolean
-  idshop: IShop
-  idcashreg: ICashregister
+  cashregister_id: ICashregister
 }
 
 export interface ICashregister {
-  numbercashreg: number
-  serialnumber: string
+  num: number
+  serialnum?: string
+  shop_id: IShop
 }
 
 export interface IShop {
-  shopname: string
+  name: string
   city: string
   address: string
 }
