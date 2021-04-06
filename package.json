@@ -1,0 +1,17 @@
+{
+  "name": "cashiers_in_shop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "tsc & node dist/app.js"
+  },
+  "author": "Oleg Marchenko",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.11"
+  }
+}
