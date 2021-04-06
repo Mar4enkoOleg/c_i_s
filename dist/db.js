@@ -11,6 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const pg_1 = require("pg");
 const express_1 = require("express");
+const dotenv_1 = require("dotenv");
+dotenv_1.config();
 const router = express_1.Router();
 const pool = new pg_1.Pool({
     user: process.env.DB_USER,
@@ -23,7 +25,13 @@ const getCashierById = (req, res) => __awaiter(void 0, void 0, void 0, function*
     return res.send('/getCashierById');
 });
 const getAllCashiers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    return res.send('/getAllCashierss');
+    try {
+        const response = yield pool.query('SELECT * FROM cashier;');
+        return res.send(response.rows);
+    }
+    catch (error) {
+        return res.send(error);
+    }
 });
 const createCashier = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     return res.send('/createCashier');

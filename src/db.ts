@@ -1,5 +1,7 @@
 import { QueryResult, Pool } from 'pg'
 import { Request, Response, Router } from 'express'
+import { config } from 'dotenv'
+config()
 
 const router = Router()
 
@@ -15,7 +17,12 @@ const getCashierById = async (req: Request, res: Response): Promise<Response> =>
   return res.send('/getCashierById')
 }
 const getAllCashiers = async (req: Request, res: Response): Promise<Response> => {
-  return res.send('/getAllCashierss')
+  try {
+    const response: QueryResult = await pool.query('SELECT * FROM cashier;')
+    return res.send(response.rows)
+  } catch (error) {
+    return res.send(error)
+  }
 }
 const createCashier = async (req: Request, res: Response): Promise<Response> => {
   return res.send('/createCashier')
