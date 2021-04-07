@@ -110,8 +110,15 @@ const deleteCashier = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 const getTargetCashiers1 = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const queryOptions = {
+        shop_city: 'Lviv',
+        shop_name: 'ATB',
+        cashier_yearofexp: 5,
+    };
     try {
-        const response = yield pool.query('SELECT * FROM cashier;');
+        const response = yield pool.query(`select cashier.id, cashier.fullname from cashier join cashregister on cashier.cashregister_id = cashregister.id 
+                                                    join shop on cashregister.shop_id = shop.id where shop.city = $1 and shop.name = $2 
+                                                    and cashier.yearofexp >= $3;`, [queryOptions.shop_city, queryOptions.shop_name, queryOptions.cashier_yearofexp]);
         return res.json(response.rows);
     }
     catch (error) {
@@ -119,8 +126,17 @@ const getTargetCashiers1 = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 const getTargetCashiers2 = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const queryOptions = {
+        address: 'address15',
+        name: 'ATB',
+        neparnieKassy: 1,
+        weekstandart: true,
+        shift: 3,
+    };
     try {
-        const response = yield pool.query('SELECT * FROM cashier;');
+        const response = yield pool.query(`select cashier.id, cashier.fullname from cashier join cashregister on cashier.cashregister_id = cashregister.id 
+                                                    join shop on cashregister.shop_id = shop.id where shop.name = $1 and shop.address = $2 
+                                                    and cashier.workweekstandart = $3 and cashier.workslnshift = $4;`, [queryOptions.name, queryOptions.address, queryOptions.weekstandart, queryOptions.shift]);
         return res.json(response.rows);
     }
     catch (error) {

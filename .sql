@@ -7,7 +7,7 @@ CREATE TABLE cashier(
     sex varchar(6) not null,
     yearofexp integer,
     workslnshift integer not null,
-    previouswork varchar(50),
+    previouswork integer,
     workweekstandart boolean not null,
     cashregister_id integer
 );
@@ -25,6 +25,8 @@ CREATE TABLE cashregister(
     serialnum varchar(50),
     shop_id integer
 );
+
+SELECT cashier.fullname FROM cashier join cashregister on cashier.cashregister_id = cashregister.id join shop on cashregister.shop_id = shop.id where shop.city = 'Lviv' and shop.name = 'ATB' and cashier.yearofexp >= 5;
 
 ALTER TABLE cashier ADD FOREIGN KEY (cashregister_id) REFERENCES cashregister (id);
 ALTER TABLE cashregister ADD FOREIGN KEY (shop_id) REFERENCES shop (id);
